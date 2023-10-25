@@ -3,6 +3,7 @@ package reactive.test;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
 
 /**
  * Reactive Streams
@@ -51,15 +52,22 @@ import reactor.core.publisher.Mono;
  * Возникнет ошибка (onError), в результате чего подписчик и подписка будут отменены.
  * Эта модель позволяет эффективно обрабатывать потоки данных и управлять ресурсами, предотвращая утечки памяти и
  * обеспечивая асинхронное, не блокирующее взаимодействие между компонентами системы.
- * */
+ */
 @Slf4j // автоматизирует создание кода для логирования в проектах, использующих Simple Logging Facade for Java
 public class MonoTest {
     @Test // JUnit, используется для обозначения методов, которые должны быть выполнены как тестовые случаи
     public void monoSubscriber() {
         String name = "William Suane";
-        Mono<String> mono = Mono.just(name); // создает объект типа Mono в Project Reactor == асинхронное, реактивное значение
+        Mono<String> mono = Mono.just(name) // создает объект типа Mono в Project Reactor == асинхронное, реактивное значение
+                .log();
         // Mono.just(name): Это статический метод just класса Mono, который используется для создания Mono с
         // заданным значением. В данном случае, значение name будет упаковано в Mono.
+
+        mono.subscribe();
+
+        StepVerifier.create(mono)
+                .expectNext(name)
+                .verifyComplete();
         log.info("Mono {}", mono);
         log.info("Everything is working as intended");
     }
