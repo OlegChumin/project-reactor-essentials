@@ -52,12 +52,14 @@ import reactor.core.publisher.Mono;
  * Эта модель позволяет эффективно обрабатывать потоки данных и управлять ресурсами, предотвращая утечки памяти и
  * обеспечивая асинхронное, не блокирующее взаимодействие между компонентами системы.
  * */
-@Slf4j
+@Slf4j // автоматизирует создание кода для логирования в проектах, использующих Simple Logging Facade for Java
 public class MonoTest {
-    @Test
+    @Test // JUnit, используется для обозначения методов, которые должны быть выполнены как тестовые случаи
     public void monoSubscriber() {
         String name = "William Suane";
-        Mono<String> mono = Mono.just(name);
+        Mono<String> mono = Mono.just(name); // создает объект типа Mono в Project Reactor == асинхронное, реактивное значение
+        // Mono.just(name): Это статический метод just класса Mono, который используется для создания Mono с
+        // заданным значением. В данном случае, значение name будет упаковано в Mono.
         log.info("Mono {}", mono);
         log.info("Everything is working as intended");
     }
